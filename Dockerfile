@@ -1,16 +1,13 @@
-FROM ubuntu:latest
+FROM azul/zulu-openjdk:22
 
-WORKDIR /helloworld
+WORKDIR /app
 
-COPY helloworld /helloworld
+ARG JAR_FILE=helloworld/target/helloworld-0.0.1-SNAPSHOT.jar
 
-RUN  apt-get update && \ 
-    apt-get install -y openjdk-17-jdk maven 
-
-RUN mvn clean install
+COPY ${JAR_FILE}   /app/application.jar
     
 
-CMD ["mvn","spring-boot:run"]
+CMD ["java", "-jar", "application.jar" ]
 
 
 
